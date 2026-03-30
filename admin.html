@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Abraham</title>
+
+<style>
+body { font-family: Arial; background:#111; color:white; padding:20px;}
+input { margin:5px; padding:10px;}
+button { padding:10px; background:orange; border:none;}
+</style>
+
+</head>
+<body>
+
+<h2>Panel de Productos 🔧</h2>
+
+<input id="nombre" placeholder="Nombre">
+<input id="precio" placeholder="Precio">
+<input id="img" placeholder="URL Imagen">
+
+<button onclick="guardar()">Guardar Producto</button>
+
+<h3>Productos cargados:</h3>
+<ul id="lista"></ul>
+
+<script>
+let productos = JSON.parse(localStorage.getItem("productos")) || [];
+
+function guardar(){
+  let nombre = document.getElementById("nombre").value;
+  let precio = document.getElementById("precio").value;
+  let img = document.getElementById("img").value;
+
+  productos.push({nombre, precio, img});
+  localStorage.setItem("productos", JSON.stringify(productos));
+
+  mostrar();
+}
+
+function mostrar(){
+  let lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  productos.forEach(p=>{
+    lista.innerHTML += `<li>${p.nombre} - $${p.precio}</li>`;
+  });
+}
+
+mostrar();
+</script>
+
+</body>
+</html>
